@@ -21,7 +21,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="$ 20.00"
+            tools:text="20.00 €"
             tools:textColor="@android:color/holo_green_dark" />
 
         <ImageView

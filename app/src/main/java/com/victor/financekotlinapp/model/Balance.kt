@@ -5,5 +5,7 @@ import java.util.*
 
 class Balance(
     val message: String,
-    var value: BigDecimal,
-    var date: Calendar)
+    val value: BigDecimal,
+    val date: Calendar = Calendar.getInstance(),
+    val type: BalanceType
+)
