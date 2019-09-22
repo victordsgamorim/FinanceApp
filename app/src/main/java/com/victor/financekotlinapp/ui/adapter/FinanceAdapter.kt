@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.extensions.formatCurrecyToCanada
 import com.victor.financekotlinapp.extensions.formatToNormalData
-import com.victor.financekotlinapp.model.Transaction
+import com.victor.financekotlinapp.model.Balance
 import kotlinx.android.synthetic.main.cardview_finance_item.view.*
 
 class FinanceAdapter(
     val context: Context,
-    val transaction: List<Transaction>
+    val balance: List<Balance>
 ) : RecyclerView.Adapter<FinanceAdapter.FinanceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FinanceViewHolder {
@@ -23,20 +23,20 @@ class FinanceAdapter(
     }
 
     override fun getItemCount(): Int {
-        return transaction.size
+        return balance.size
     }
 
     override fun onBindViewHolder(holder: FinanceViewHolder, position: Int) {
-        val transaction = transaction[position]
-        holder.bindInformation(transaction)
+        val balance = balance[position]
+        holder.bindInformation(balance)
     }
 
     class FinanceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindInformation(transaction: Transaction) {
-            itemView.cardview_finance_message.text = transaction.message
-            itemView.cardview_finance_value.text = transaction.value.formatCurrecyToCanada()
-            itemView.cardview_finance_date.text = transaction.date.formatToNormalData()
+        fun bindInformation(balance: Balance) {
+            itemView.cardview_finance_message.text = balance.message
+            itemView.cardview_finance_value.text = balance.value.formatCurrecyToCanada()
+            itemView.cardview_finance_date.text = balance.date.formatToNormalData()
         }
 
 
