@@ -4,12 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.financekotlinapp.R
-import com.victor.financekotlinapp.extensions.*
 import com.victor.financekotlinapp.model.Balance
-import com.victor.financekotlinapp.model.BalanceType
+import com.victor.financekotlinapp.ui.adapter.config.BalanceDesignConfig
 import kotlinx.android.synthetic.main.cardview_finance_item.view.*
 
 class FinanceAdapter(
@@ -35,59 +33,39 @@ class FinanceAdapter(
     class FinanceViewHolder(itemView: View, private val context: Context) :
         RecyclerView.ViewHolder(itemView) {
 
-        private val MAX_MESSAGE_CHARACTERS = 14
 
         fun bindInformation(balance: Balance) {
+            val balanceDesignConfig =
+                BalanceDesignConfig(balance, context)
 
-            setMessage(balance)
-            setPositiveOrNegativeValue(balance)
-            setDate(balance)
-            setBalanceConfigThroughType(balance.type)
+            setMessage(balanceDesignConfig)
+            setDate(balanceDesignConfig)
+            setValueSign(balanceDesignConfig)
+            setIcon(balanceDesignConfig)
+        }
 
+        private fun setMessage(balance: BalanceDesignConfig) {
+            itemView.cardview_finance_message.text = balance.getMessage()
 
         }
 
-        private fun setDate(balance: Balance) {
-            itemView.cardview_finance_date.text = balance.date.formatDateToDDMMYYYY()
+        private fun setDate(balance: BalanceDesignConfig) {
+            itemView.cardview_finance_date.text = balance.getFormattedDate()
         }
 
-        private fun setMessage(balance: Balance) {
-            itemView.cardview_finance_message.text =
-                balance.message.trimBigMessage(MAX_MESSAGE_CHARACTERS)
-        }
 
-        private fun setBalanceConfigThroughType(type: BalanceType) {
-            if (type == BalanceType.IN) {
-                setIcon(R.drawable.ic_balance_arrow_up)
-                setValueColour(R.color.moneyIn)
-
-            } else {
-                setIcon(R.drawable.ic_balance_arrow_down)
-                setValueColour(R.color.moneyOut)
-            }
-        }
-
-        private fun setPositiveOrNegativeValue(balance: Balance) {
-            if (balance.type == BalanceType.IN) {
-                itemView.cardview_finance_value.text =
-                    balance.value.formatCurrecytToEuro().formatValueToPositive()
-            } else {
-                itemView.cardview_finance_value.text =
-                    balance.value.formatCurrecytToEuro().formatValueToNegative()
-            }
-        }
-
-        private fun setIcon(icon: Int) {
-            itemView.cardview_finance_image.setBackgroundResource(icon)
-        }
-
-        private fun setValueColour(colour: Int) {
-            itemView.cardview_finance_value.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    colour
-                )
+        private fun setIcon(balance: BalanceDesignConfig) {
+            itemView.cardview_finance_image.setBackgroundResource(
+                balance.getIcon()
             )
+        }
+
+
+        private fun setValueSign(balance: BalanceDesignConfig) {
+            with(itemView.cardview_finance_value) {
+                text = balance.getValueSign()
+                setTextColor(balance.getValueColour())
+            }
         }
 
 

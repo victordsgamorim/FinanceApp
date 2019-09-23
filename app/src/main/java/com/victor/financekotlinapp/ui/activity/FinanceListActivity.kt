@@ -16,7 +16,8 @@ class FinanceListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_finance_list)
 
         val list: List<Balance> = listOf(
-            Balance(message = "Lunchsaldkajdklasjdklsajdlkajdakljdakldjalkdjakldjalkdjaldkaj", value = BigDecimal(100.0), type = BalanceType.OUT),
+            Balance(message = "Lunchsaldkajdklasjdklsajdlkajdakljdakldjalkdjakldjalkdjaldkaj",
+                value = BigDecimal(100.0), type = BalanceType.OUT),
             Balance(message = "Wage", value = BigDecimal(300.0), type = BalanceType.IN)
         )
 
