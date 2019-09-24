@@ -9,3 +9,4 @@ class Balance(
     val date: Calendar = Calendar.getInstance(),
     val type: BalanceType
 )
+

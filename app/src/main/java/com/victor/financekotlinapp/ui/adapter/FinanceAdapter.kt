@@ -45,19 +45,17 @@ class FinanceAdapter(
         }
 
         private fun setMessage(balance: BalanceDesignConfig) {
-            itemView.cardview_finance_message.text = balance.getMessage()
+            itemView.cardview_finance_message.text = balance.message
 
         }
 
         private fun setDate(balance: BalanceDesignConfig) {
-            itemView.cardview_finance_date.text = balance.getFormattedDate()
+            itemView.cardview_finance_date.text = balance.date
         }
 
 
         private fun setIcon(balance: BalanceDesignConfig) {
-            itemView.cardview_finance_image.setBackgroundResource(
-                balance.getIcon()
-            )
+            itemView.cardview_finance_image.setBackgroundResource(balance.getIcon())
         }
 
 

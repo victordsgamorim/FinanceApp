@@ -14,14 +14,16 @@ class BalanceDesignConfig(
     context: Context
 ) {
 
-    val type = balance.type
-
+    private val type = balance.type
     private val colourMoneyInt = ContextCompat.getColor(context, R.color.moneyIn)
     private var colourMoneyOut = ContextCompat.getColor(context, R.color.moneyOut)
     private val iconArrowUp = R.drawable.ic_balance_arrow_up
     private val iconArrowDown = R.drawable.ic_balance_arrow_down
 
     private val MAX_MESSAGE_CHARACTERS = 14
+
+    val message = balance.message.trimBigMessage(MAX_MESSAGE_CHARACTERS)
+    val date = balance.date.formatDateToDDMMYYYY()
 
     fun getValueColour(): Int {
         if (type == BalanceType.IN) {
@@ -46,11 +48,5 @@ class BalanceDesignConfig(
         return "- $value"
     }
 
-    fun getMessage(): String {
-        return balance.message.trimBigMessage(MAX_MESSAGE_CHARACTERS)
-    }
 
-    fun getFormattedDate(): String {
-        return balance.date.formatDateToDDMMYYYY()
-    }
 }
