@@ -1,20 +1,21 @@
 package com.victor.financekotlinapp.ui.activity
 
-import android.app.DatePickerDialog
+import android.graphics.Color
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.victor.financekotlinapp.R
-import com.victor.financekotlinapp.extensions.formatDateToDDMMYYYY
 import com.victor.financekotlinapp.model.Balance
 import com.victor.financekotlinapp.model.BalanceType
 import com.victor.financekotlinapp.ui.adapter.FinanceAdapter
 import com.victor.financekotlinapp.ui.dialog.AlertDialogConfig
 import kotlinx.android.synthetic.main.activity_finance_list.*
-import kotlinx.android.synthetic.main.view_form_finance.view.*
 import java.math.BigDecimal
-import java.util.*
 
 class FinanceListActivity : AppCompatActivity() {
 
@@ -22,46 +23,52 @@ class FinanceListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_finance_list)
 
-        val list: List<Balance> = listOf(
+        val balances: List<Balance> = listOf(
             Balance(
                 message = "Lunchsaldkajdklasjdklsajdlkajdakljdakldjalkdjakldjalkdjaldkaj",
-                value = BigDecimal(100.0), type = BalanceType.OUT
+                value = BigDecimal(100.0), type = BalanceType.OUTGOING
             ),
-            Balance(message = "Wage", value = BigDecimal(300.0), type = BalanceType.IN)
+            Balance(message = "Wage", value = BigDecimal(300.0), type = BalanceType.INCOMING)
         )
 
+
+        /**Pie Chart*/
+        //TODO("not implemented") still need to config and refector.
+        val entries = mutableListOf<PieEntry>()
+
+        for (balance in balances) {
+            entries.add(PieEntry(balance.value.toFloat(), balance.type.name))
+        }
+
+        val pieDataSet = PieDataSet(entries, "")
+        pieDataSet.colors = ColorTemplate.createColors(ColorTemplate.JOYFUL_COLORS)
+
+        val pieData = PieData(pieDataSet)
+        pieData.setValueTextSize(20f)
+        pieData.setValueTextColor(Color.WHITE)
+        activity_list_piechart.data = pieData
+        activity_list_piechart.invalidate()
+        activity_list_piechart.setUsePercentValues(true)
+        activity_list_piechart.description.isEnabled = false
+        activity_list_piechart.setExtraOffsets(10f, 10f, 5f, 10f)
+        activity_list_piechart.dragDecelerationFrictionCoef = 0.95f
+        activity_list_piechart.isDrawHoleEnabled = true
+        activity_list_piechart.setHoleColor(Color.WHITE)
+        activity_list_piechart.transparentCircleRadius = 61f
+
+
+
         activity_finance_list.adapter =
-            FinanceAdapter(this, list)
+            FinanceAdapter(this, balances)
 
 
-        val year = 2019
-        val month = 8
-        val day = 1
-
+        /**Fab*/
         val viewGroup = window.decorView as ViewGroup
 
         activity_finance_fab.setOnClickListener {
             AlertDialogConfig(context = this, viewGroup = viewGroup).show()
         }
 
-    }
-
-
-    private fun datePickListener(viewForm: View): DatePickerDialog.OnDateSetListener {
-        return DatePickerDialog.OnDateSetListener { view, year, month, day ->
-            createDate(year, month, day, viewForm)
-        }
-    }
-
-    private fun createDate(
-        year: Int,
-        month: Int,
-        day: Int,
-        viewForm: View
-    ) {
-        val selectedDate = Calendar.getInstance()
-        selectedDate.set(year, month, day)
-        viewForm.form_finance_date.setText(selectedDate.formatDateToDDMMYYYY())
     }
 
 
