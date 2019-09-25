@@ -6,12 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.FinanceListActivity">
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/activity_list_piechart"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_finance_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:layout_marginTop="8dp"
 
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_list_piechart"
         tools:listitem="@layout/cardview_finance_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,9 +34,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:backgroundTint="@android:color/holo_blue_light"
         android:clickable="true"
         android:focusable="true"
-        android:backgroundTint="@android:color/holo_blue_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_finance" />

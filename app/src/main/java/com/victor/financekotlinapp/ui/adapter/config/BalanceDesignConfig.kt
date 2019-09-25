@@ -26,7 +26,7 @@ class BalanceDesignConfig(
     val date = balance.date.formatDateToDDMMYYYY()
 
     fun getValueColour(): Int {
-        if (type == BalanceType.IN) {
+        if (type == BalanceType.INCOMING) {
             return colourMoneyInt
         }
         return colourMoneyOut
@@ -34,7 +34,7 @@ class BalanceDesignConfig(
     }
 
     fun getIcon(): Int {
-        if (type == BalanceType.IN) {
+        if (type == BalanceType.INCOMING) {
             return iconArrowUp
         }
         return iconArrowDown
@@ -42,7 +42,7 @@ class BalanceDesignConfig(
 
     fun getValueSign(): String {
         val value = balance.value.formatCurrecytToEuro()
-        if (balance.type == BalanceType.IN) {
+        if (balance.type == BalanceType.INCOMING) {
             return "+ $value"
         }
         return "- $value"
