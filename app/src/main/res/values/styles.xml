@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CollapsingTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/appCompactWhite</item>
+        <item name="colorPrimaryDark">@color/appCompactWhite</item>
+        <item name="colorAccent">@color/appCompactWhite</item>
+    </style>
+
 </resources>

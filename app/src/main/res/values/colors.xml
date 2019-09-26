@@ -6,4 +6,7 @@
     <color name="greenFab">#34a352</color>
     <color name="moneyOut">#c41616</color>
     <color name="moneyIn">#34a352</color>
+    <color name="appCompactWhite">#fff</color>
+    <color name="redOutgoing">#a30b22</color>
+    <color name="greenIncoming">#058f03</color>
 </resources>
