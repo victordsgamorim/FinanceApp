@@ -1,15 +1,24 @@
 package com.victor.financekotlinapp.ui
 
+import android.content.Context
 import android.graphics.Color
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.victor.financekotlinapp.R
+import com.victor.financekotlinapp.extensions.formatCurrecytToEuro
 import com.victor.financekotlinapp.model.Balance
 import kotlinx.android.synthetic.main.activity_list_balance.view.*
+import java.math.BigDecimal
 
-class PieChartView(private val transaction: List<Balance>, private val view: View) {
+class PieChartView(
+    private val transaction: List<Balance>,
+    private val view: View,
+    private val context: Context
+) {
 
     private val entries = mutableListOf<PieEntry>()
     private val statistics = PieChartStatistics(transaction)
@@ -21,6 +30,28 @@ class PieChartView(private val transaction: List<Balance>, private val view: Vie
         val pieDataSet = configDataSet()
         val pieData = configData(pieDataSet)
         configDataView(pieData)
+        configTotalBalance()
+    }
+
+    //TODO("not implemented") new ways of refactor related to get/set colours (from the adapter to total balance)
+    private fun configTotalBalance() {
+        val totalBalance =
+            statistics.totalBalance()
+
+        val colour = getColour(totalBalance)
+
+        with(view.activity_total_balance) {
+            text = "Balance: ${totalBalance.formatCurrecytToEuro()}"
+            setTextColor(colour)
+        }
+    }
+
+    private fun getColour(totalBalance: BigDecimal): Int {
+        if (totalBalance.toDouble() >= 0) {
+            return ContextCompat.getColor(context, R.color.moneyIn)
+        }
+        return ContextCompat.getColor(context, R.color.moneyOut)
+
     }
 
     private fun configDataView(pieData: PieData) {
@@ -45,7 +76,11 @@ class PieChartView(private val transaction: List<Balance>, private val view: Vie
 
     private fun configDataSet(): PieDataSet {
         val pieDataSet = PieDataSet(entries, "")
-        pieDataSet.colors = ColorTemplate.createColors(ColorTemplate.JOYFUL_COLORS)
+
+        val balanceColours = context.resources.getIntArray(R.array.balance_colours)
+
+
+        pieDataSet.colors = ColorTemplate.createColors(balanceColours)
         return pieDataSet
     }
 

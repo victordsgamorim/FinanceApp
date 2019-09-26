@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="green">@color/greenIncoming</color>
+    <color name="red">@color/redOutgoing</color>
+
+    <array name="balance_colours">
+        <item>@color/green</item>
+        <item>@color/red</item>
+
+    </array>
+</resources>

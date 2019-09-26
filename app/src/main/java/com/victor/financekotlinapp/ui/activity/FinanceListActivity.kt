@@ -28,11 +28,12 @@ class FinanceListActivity : AppCompatActivity() {
                 value = BigDecimal(100.0), type = BalanceType.OUTGOING
             ),
             Balance(message = "Wage", value = BigDecimal(300.0), type = BalanceType.INCOMING),
-            Balance(message = "Car", value = BigDecimal(123.98), type = BalanceType.OUTGOING)
+            Balance(message = "Car", value = BigDecimal(123.98), type = BalanceType.OUTGOING),
+            Balance(message = "House", value = BigDecimal(709.21), type = BalanceType.OUTGOING)
         )
 
         /**creates PieChart*/
-        PieChartView(balances, viewGroup).show()
+        PieChartView(balances, viewGroup, this).show()
 
         /**Recycler View Items*/
         activity_finance_list.adapter =
