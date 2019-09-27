@@ -3,28 +3,30 @@ package com.victor.financekotlinapp.ui
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.extensions.formatCurrecytToEuro
-import com.victor.financekotlinapp.model.Balance
+import com.victor.financekotlinapp.model.Transaction
 import kotlinx.android.synthetic.main.activity_list_balance.view.*
-import java.math.BigDecimal
 
 class PieChartView(
-    private val transaction: List<Balance>,
+    transaction: List<Transaction>,
     private val view: View,
     private val context: Context
 ) {
 
     private val entries = mutableListOf<PieEntry>()
     private val statistics = PieChartStatistics(transaction)
+    private val pieChart = view.activity_list_piechart
+    private val formatter = PercentFormatter(pieChart)
 
     fun show() {
         //TODO("not implemented") still need to config
+
 
         addEntries()
         val pieDataSet = configDataSet()
@@ -33,54 +35,64 @@ class PieChartView(
         configTotalBalance()
     }
 
-    //TODO("not implemented") new ways of refactor related to get/set colours (from the adapter to total balance)
     private fun configTotalBalance() {
         val totalBalance =
             statistics.totalBalance()
 
-        val colour = getColour(totalBalance)
-
-        with(view.activity_total_balance) {
-            text = "Balance: ${totalBalance.formatCurrecytToEuro()}"
-            setTextColor(colour)
-        }
-    }
-
-    private fun getColour(totalBalance: BigDecimal): Int {
-        if (totalBalance.toDouble() >= 0) {
-            return ContextCompat.getColor(context, R.color.moneyIn)
-        }
-        return ContextCompat.getColor(context, R.color.moneyOut)
-
+        view.activity_total_balance.text = "Balance: ${totalBalance.formatCurrecytToEuro()}"
     }
 
     private fun configDataView(pieData: PieData) {
-        view.activity_list_piechart.data = pieData
-        view.activity_list_piechart.description.isEnabled = false
-        view.activity_list_piechart.dragDecelerationFrictionCoef = 0.95f
-        view.activity_list_piechart.isDrawHoleEnabled = true
-        view.activity_list_piechart.transparentCircleRadius = 61f
-        view.activity_list_piechart.legend.isEnabled = false
-        view.activity_list_piechart.setUsePercentValues(true)
-        view.activity_list_piechart.setExtraOffsets(10f, 10f, 5f, 10f)
-        view.activity_list_piechart.setHoleColor(Color.TRANSPARENT)
-        view.activity_list_piechart.invalidate()
+        with(pieChart) {
+            data = pieData
+
+            //refresh
+            invalidate()
+
+            //config hole
+            isDrawHoleEnabled = true
+            holeRadius = 50f
+
+            //rotation
+            isRotationEnabled = true
+            setUsePercentValues(true)
+
+            //config desc and legend
+            description.isEnabled = false
+            legend.isEnabled = false
+
+        }
+
+
     }
 
     private fun configData(pieDataSet: PieDataSet): PieData {
         val pieData = PieData(pieDataSet)
-        pieData.setValueTextSize(20f)
-        pieData.setValueTextColor(Color.WHITE)
         return pieData
     }
 
     private fun configDataSet(): PieDataSet {
+        //colours
+        val arrayOfColours = context.resources.getIntArray(R.array.balance_colours)
+
         val pieDataSet = PieDataSet(entries, "")
+        with(pieDataSet) {
 
-        val balanceColours = context.resources.getIntArray(R.array.balance_colours)
+            //circle config
+            sliceSpace = 2f
+            selectionShift = 10f
+            colors = ColorTemplate.createColors(arrayOfColours)
+
+            //text percent
+            valueFormatter = formatter
+
+            //text colour and size
+            valueTextSize = 20f
+            valueTextColor = Color.WHITE
 
 
-        pieDataSet.colors = ColorTemplate.createColors(balanceColours)
+        }
+
         return pieDataSet
     }
 

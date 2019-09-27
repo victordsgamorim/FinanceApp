@@ -6,11 +6,11 @@ import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.extensions.formatCurrecytToEuro
 import com.victor.financekotlinapp.extensions.formatDateToDDMMYYYY
 import com.victor.financekotlinapp.extensions.trimBigMessage
-import com.victor.financekotlinapp.model.Balance
+import com.victor.financekotlinapp.model.Transaction
 import com.victor.financekotlinapp.model.BalanceType
 
 class BalanceDesignConfig(
-    private val balance: Balance,
+    private val balance: Transaction,
     context: Context
 ) {
 
@@ -23,6 +23,7 @@ class BalanceDesignConfig(
     private val MAX_MESSAGE_CHARACTERS = 14
 
     val message = balance.message.trimBigMessage(MAX_MESSAGE_CHARACTERS)
+
     val date = balance.date.formatDateToDDMMYYYY()
 
     fun getValueColour(): Int {
@@ -30,7 +31,6 @@ class BalanceDesignConfig(
             return colourMoneyInt
         }
         return colourMoneyOut
-
     }
 
     fun getIcon(): Int {

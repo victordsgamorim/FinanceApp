@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.financekotlinapp.R
-import com.victor.financekotlinapp.model.Balance
+import com.victor.financekotlinapp.model.Transaction
 import com.victor.financekotlinapp.ui.adapter.config.BalanceDesignConfig
 import kotlinx.android.synthetic.main.cardview_finance_item.view.*
 
 class FinanceAdapter(
     val context: Context,
-    val balance: List<Balance>
+    val transaction: List<Transaction>
 ) : RecyclerView.Adapter<FinanceAdapter.FinanceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FinanceViewHolder {
@@ -22,19 +22,19 @@ class FinanceAdapter(
     }
 
     override fun getItemCount(): Int {
-        return balance.size
+        return transaction.size
     }
 
     override fun onBindViewHolder(holder: FinanceViewHolder, position: Int) {
-        val balance = balance[position]
-        holder.bindInformation(balance)
+        val transaction = transaction[position]
+        holder.bindInformation(transaction)
     }
 
     class FinanceViewHolder(itemView: View, private val context: Context) :
         RecyclerView.ViewHolder(itemView) {
 
 
-        fun bindInformation(balance: Balance) {
+        fun bindInformation(balance: Transaction) {
             val balanceDesignConfig =
                 BalanceDesignConfig(balance, context)
 

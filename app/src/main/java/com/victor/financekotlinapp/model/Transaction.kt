@@ -3,7 +3,7 @@ package com.victor.financekotlinapp.model
 import java.math.BigDecimal
 import java.util.*
 
-class Balance(
+class Transaction(
     val message: String,
     val value: BigDecimal,
     val date: Calendar = Calendar.getInstance(),
