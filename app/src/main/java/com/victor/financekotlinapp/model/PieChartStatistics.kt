@@ -1,7 +1,5 @@
-package com.victor.financekotlinapp.ui
+package com.victor.financekotlinapp.model
 
-import com.victor.financekotlinapp.model.Transaction
-import com.victor.financekotlinapp.model.BalanceType
 import java.math.BigDecimal
 
 class PieChartStatistics(private val transactions: List<Transaction>) {

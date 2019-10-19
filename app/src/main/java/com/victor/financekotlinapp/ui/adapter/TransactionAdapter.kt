@@ -10,10 +10,10 @@ import com.victor.financekotlinapp.model.Transaction
 import com.victor.financekotlinapp.ui.adapter.config.BalanceDesignConfig
 import kotlinx.android.synthetic.main.cardview_finance_item.view.*
 
-class FinanceAdapter(
-    val context: Context,
-    val transaction: List<Transaction>
-) : RecyclerView.Adapter<FinanceAdapter.FinanceViewHolder>() {
+class TransactionAdapter(
+    private val context: Context,
+    private val transactions: MutableList<Transaction> = mutableListOf()
+) : RecyclerView.Adapter<TransactionAdapter.FinanceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FinanceViewHolder {
         val inflater = LayoutInflater.from(context)
@@ -22,12 +22,19 @@ class FinanceAdapter(
     }
 
     override fun getItemCount(): Int {
-        return transaction.size
+        return transactions.size
     }
 
     override fun onBindViewHolder(holder: FinanceViewHolder, position: Int) {
-        val transaction = transaction[position]
+        val transaction = transactions[position]
         holder.bindInformation(transaction)
+    }
+
+    fun update(transaction: List<Transaction>) {
+        notifyItemRangeRemoved(0, this.transactions.size)
+        transactions.clear()
+        transactions.addAll(transaction)
+        notifyItemRangeInserted(0, this.transactions.size)
     }
 
     class FinanceViewHolder(itemView: View, private val context: Context) :

@@ -1,4 +1,4 @@
-package com.victor.financekotlinapp.ui
+package com.victor.financekotlinapp.model
 
 import android.content.Context
 import android.graphics.Color
@@ -9,9 +9,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.victor.financekotlinapp.R
-import com.victor.financekotlinapp.extensions.formatCurrecytToEuro
-import com.victor.financekotlinapp.model.Transaction
-import kotlinx.android.synthetic.main.activity_list_balance.view.*
+import kotlinx.android.synthetic.main.fragment_chart_ougoing.view.*
 
 class PieChartView(
     transaction: List<Transaction>,
@@ -39,7 +37,7 @@ class PieChartView(
         val totalBalance =
             statistics.totalBalance()
 
-        view.activity_total_balance.text = "Balance: ${totalBalance.formatCurrecytToEuro()}"
+        //view.activity_total_balance.text = "Balance: ${totalBalance.formatCurrecytToEuro()}"
     }
 
     private fun configDataView(pieData: PieData) {
