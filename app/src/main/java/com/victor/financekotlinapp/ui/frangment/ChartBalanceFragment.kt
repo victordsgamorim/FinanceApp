@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.model.BalanceType
+import com.victor.financekotlinapp.model.PieChartView
 import com.victor.financekotlinapp.model.Transaction
 import com.victor.financekotlinapp.ui.adapter.TransactionAdapter
 import com.victor.financekotlinapp.ui.dialog.AlertDialogConfig
@@ -26,6 +27,10 @@ class ChartBalanceFragment : Fragment() {
 
     private val viewGroup by lazy {
         activity?.let { it.window.decorView as ViewGroup }
+    }
+
+    private val balances by lazy {
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,16 +69,21 @@ class ChartBalanceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         /**creates PieChart*/
-//        PieChartView(balances, viewGroup, context).show()
+
 
         /**Recycler View Items*/
         activity_transaction_list.adapter = adapter
 
 
         viewGroup?.let { viewGroup ->
+
+            PieChartView(adapter.getTransactions(), viewGroup, activityContext).show()
+
             fragment_balance_fab.setOnClickListener {
                 AlertDialogConfig(context = activityContext, viewGroup = viewGroup).show()
             }
+
+
         }
 
 

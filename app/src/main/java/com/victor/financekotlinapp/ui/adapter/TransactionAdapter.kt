@@ -37,6 +37,10 @@ class TransactionAdapter(
         notifyItemRangeInserted(0, this.transactions.size)
     }
 
+    fun getTransactions(): List<Transaction> {
+        return transactions
+    }
+
     class FinanceViewHolder(itemView: View, private val context: Context) :
         RecyclerView.ViewHolder(itemView) {
 
