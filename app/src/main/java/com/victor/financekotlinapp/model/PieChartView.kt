@@ -73,7 +73,7 @@ class PieChartView(
         //colours
         val arrayOfColours = context.resources.getIntArray(R.array.balance_colours)
 
-        val pieDataSet = PieDataSet(entries, "")
+        val pieDataSet = PieDataSet(entries, null)
         with(pieDataSet) {
 
             //circle config

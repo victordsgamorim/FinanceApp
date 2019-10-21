@@ -6,37 +6,43 @@ import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.ui.frangment.ChartIncomingFragment
 import com.victor.financekotlinapp.ui.frangment.FragmentManagerViewPager
 import com.victor.financekotlinapp.ui.frangment.FragmentResource
-import com.victor.financekotlinapp.ui.frangment.ChartOutgoingFragment
+import com.victor.financekotlinapp.ui.frangment.ChartBalanceFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class FinanceListActivity : AppCompatActivity() {
 
+    private val fragmentManagerViewPager by lazy {
+        FragmentManagerViewPager(supportFragmentManager)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragmentManagerViewPager = FragmentManagerViewPager(supportFragmentManager)
+        tabLayoutConfiguration()
+
+
+    }
+
+    private fun tabLayoutConfiguration() {
+
+        addFragmentToTab()
+
+        activity_main_viewpager.adapter = fragmentManagerViewPager
+        activity_main_tablayout.setupWithViewPager(activity_main_viewpager)
+    }
+
+    private fun addFragmentToTab() {
         fragmentManagerViewPager.addFragment(
             FragmentResource(
-                fragment = ChartOutgoingFragment(),
-                title = "Outgoing"
+                fragment = ChartBalanceFragment(),
+                title = "Balance"
             ),
             FragmentResource(
                 fragment = ChartIncomingFragment(),
                 title = "Incoming"
             )
         )
-
-        activity_main_viewpager.adapter = fragmentManagerViewPager
-        activity_main_tablayout.setupWithViewPager(activity_main_viewpager)
-
-
-        /**Fab*/
-//        activity_finance_fab.setOnClickListener {
-//            AlertDialogConfig(context = this, viewGroup = viewGroup as ViewGroup).show()
-//        }
-
     }
 
 

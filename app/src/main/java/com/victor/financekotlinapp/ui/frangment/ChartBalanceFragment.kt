@@ -9,15 +9,23 @@ import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.model.BalanceType
 import com.victor.financekotlinapp.model.Transaction
 import com.victor.financekotlinapp.ui.adapter.TransactionAdapter
+import com.victor.financekotlinapp.ui.dialog.AlertDialogConfig
 import kotlinx.android.synthetic.main.fragment_chart_ougoing.*
 import java.math.BigDecimal
 
-class ChartOutgoingFragment : Fragment() {
+class ChartBalanceFragment : Fragment() {
+
+    private val activityContext by lazy {
+        context?.let { it }
+            ?: throw java.lang.IllegalArgumentException("Context not found!")
+    }
 
     private val adapter by lazy {
-        context?.let {
-            TransactionAdapter(it)
-        } ?: throw IllegalArgumentException("Invalid Context")
+        TransactionAdapter(activityContext)
+    }
+
+    private val viewGroup by lazy {
+        activity?.let { it.window.decorView as ViewGroup }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +68,13 @@ class ChartOutgoingFragment : Fragment() {
 
         /**Recycler View Items*/
         activity_transaction_list.adapter = adapter
+
+
+        viewGroup?.let { viewGroup ->
+            fragment_balance_fab.setOnClickListener {
+                AlertDialogConfig(context = activityContext, viewGroup = viewGroup).show()
+            }
+        }
 
 
     }
