@@ -12,13 +12,13 @@
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/activity_list_appbar"
+            android:id="@+id/fragment_total_balance_list_appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/CollapsingTheme">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/activity_list_collapsingtoolbar"
+                android:id="@+id/fragment_total_balance_list_collapsingtoolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:contentScrim="@color/appCompactWhite"
@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content">
 
                     <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/activity_list_piechart"
+                        android:id="@+id/fragment_total_balance_list_piechart"
                         android:layout_width="match_parent"
                         android:layout_height="500dp"
                         android:layout_margin="8dp"
@@ -39,7 +39,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/activity_total_balance"
+                        android:id="@+id/fragment_total_balance_total_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginBottom="8dp"
@@ -83,7 +83,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activity_transaction_list"
+            android:id="@+id/fragment_total_balance_transaction_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -95,7 +95,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fragment_balance_fab"
+        android:id="@+id/fragment_total_balance_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

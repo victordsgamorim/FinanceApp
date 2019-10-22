@@ -6,19 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.victor.financekotlinapp.R
+import com.victor.financekotlinapp.model.PieChartType
 import com.victor.financekotlinapp.model.BalanceType
-import com.victor.financekotlinapp.model.PieChartView
+import com.victor.financekotlinapp.ui.view.PieChartView
 import com.victor.financekotlinapp.model.Transaction
 import com.victor.financekotlinapp.ui.adapter.TransactionAdapter
 import com.victor.financekotlinapp.ui.dialog.AlertDialogConfig
-import kotlinx.android.synthetic.main.fragment_chart_ougoing.*
+import kotlinx.android.synthetic.main.fragment_chart_total_balance.*
 import java.math.BigDecimal
 
 class ChartBalanceFragment : Fragment() {
 
     private val activityContext by lazy {
         context?.let { it }
-            ?: throw java.lang.IllegalArgumentException("Context not found!")
+            ?: throw IllegalArgumentException("Context not found!")
     }
 
     private val adapter by lazy {
@@ -29,15 +30,9 @@ class ChartBalanceFragment : Fragment() {
         activity?.let { it.window.decorView as ViewGroup }
     }
 
-    private val balances by lazy {
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         carregaDados()
-
     }
 
     /**Example of data*/
@@ -62,30 +57,44 @@ class ChartBalanceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_chart_ougoing, container, false)
+        return inflater.inflate(R.layout.fragment_chart_total_balance, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /**creates PieChart*/
-
-
-        /**Recycler View Items*/
-        activity_transaction_list.adapter = adapter
-
-
-        viewGroup?.let { viewGroup ->
-
-            PieChartView(adapter.getTransactions(), viewGroup, activityContext).show()
-
-            fragment_balance_fab.setOnClickListener {
-                AlertDialogConfig(context = activityContext, viewGroup = viewGroup).show()
-            }
-
-
-        }
+        fragment_total_balance_transaction_list.adapter = adapter
+        configTotalBalancePieChart()
+        openAddTransactionAlertDialog()
 
 
     }
+
+    private fun openAddTransactionAlertDialog() {
+        viewGroup?.let { viewGroup ->
+            fragment_total_balance_fab.setOnClickListener {
+                AlertDialogConfig(
+                    context = activityContext,
+                    viewGroup = viewGroup
+                ).show()
+            }
+
+        }
+    }
+
+    private fun configTotalBalancePieChart() {
+        val transactionList = adapter.getTransactions()
+
+        viewGroup?.let {
+            PieChartView(
+                context = activityContext,
+                transactions = transactionList,
+                viewGroup = it,
+                pieChartType = PieChartType.INCOMING_OUTGOING
+            ).show()
+        }
+
+    }
+
+
 }
