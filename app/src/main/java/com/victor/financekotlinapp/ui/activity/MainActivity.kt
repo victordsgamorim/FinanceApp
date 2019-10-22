@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        controller.addOnDestinationChangedListener { controller, destination, arguments ->
+        controller.addOnDestinationChangedListener { _, destination, _ ->
 
             when (destination.id) {
                 R.id.loginFragment -> supportActionBar?.hide()
