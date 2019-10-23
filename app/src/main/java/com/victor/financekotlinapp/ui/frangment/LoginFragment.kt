@@ -27,10 +27,25 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fragment_login_button.setOnClickListener {
-            val direction =
-                LoginFragmentDirections.actionLoginFragmentToTablayoutFragment()
-
-            controller.navigate(direction)
+            goToBalanceFragment()
         }
+
+        fragment_login_sign_up.setOnClickListener {
+            goToSignUpFragment()
+        }
+    }
+
+    private fun goToSignUpFragment() {
+        val direcation =
+            LoginFragmentDirections.actionLoginFragmentToSignupFragment()
+
+        controller.navigate(direcation)
+    }
+
+    private fun goToBalanceFragment() {
+        val direction =
+            LoginFragmentDirections.actionLoginFragmentToTablayoutFragment()
+
+        controller.navigate(direction)
     }
 }

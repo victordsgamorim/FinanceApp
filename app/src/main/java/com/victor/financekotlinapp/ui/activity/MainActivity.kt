@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.loginFragment -> supportActionBar?.hide()
                 else -> supportActionBar?.show()
             }
-
         }
     }
 

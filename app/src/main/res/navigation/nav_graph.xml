@@ -14,7 +14,7 @@
         android:id="@+id/loginFragment"
         android:name="com.victor.financekotlinapp.ui.frangment.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_tablayoutFragment"
             app:destination="@id/tablayoutFragment"
@@ -24,6 +24,9 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@+id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_loginFragment"
@@ -34,4 +37,9 @@
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         app:popUpTo="@+id/nav_graph"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.victor.financekotlinapp.ui.frangment.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_user_signup" />
 </navigation>
