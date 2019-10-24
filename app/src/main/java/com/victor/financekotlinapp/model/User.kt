@@ -1,11 +1,16 @@
 package com.victor.financekotlinapp.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 class User(
-    private val id: Long? = null,
-    private val firstName: String?,
-    private val surname: String?,
-    private val userName: String?,
-    private val password: String?
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val firstName: String?,
+    val surname: String?,
+    val userName: String?,
+    val password: String?
 )
 
 

@@ -40,7 +40,7 @@ class SignUpFragment : Fragment() {
         }
 
         fragment_done_button.setOnClickListener {
-            createUser()
+            //createUser()
             controller.navigate(direction)
 
 
@@ -68,6 +68,7 @@ class SignUpFragment : Fragment() {
             userName = userName,
             password = password
         )
+
     }
 
 
