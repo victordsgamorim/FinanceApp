@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_signup_user_first_name"
+        android:id="@+id/fragment_login_username"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,14 +30,14 @@
         app:layout_constraintGuide_percent="0.40" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_signup_user_password"
+        android:id="@+id/fragment_login_user_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintEnd_toEndOf="@id/fragment_signup_user_first_name"
-        app:layout_constraintStart_toStartOf="@id/fragment_signup_user_first_name"
+        app:layout_constraintEnd_toEndOf="@id/fragment_login_username"
+        app:layout_constraintStart_toStartOf="@id/fragment_login_username"
         app:layout_constraintTop_toBottomOf="@id/framgnet_login_middle_guideline">
 
 
@@ -53,10 +53,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Login"
-        app:layout_constraintEnd_toEndOf="@id/fragment_signup_user_password"
-        app:layout_constraintStart_toStartOf="@id/fragment_signup_user_password"
+        app:layout_constraintEnd_toEndOf="@id/fragment_login_user_password"
+        app:layout_constraintStart_toStartOf="@id/fragment_login_user_password"
 
-        app:layout_constraintTop_toBottomOf="@id/fragment_signup_user_password" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_login_user_password" />
 
     <Button
         android:id="@+id/fragment_login_sign_up"
@@ -64,8 +64,8 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:text="Sign up"
-        app:layout_constraintEnd_toEndOf="@id/fragment_signup_user_password"
-        app:layout_constraintStart_toStartOf="@id/fragment_signup_user_password"
+        app:layout_constraintEnd_toEndOf="@id/fragment_login_user_password"
+        app:layout_constraintStart_toStartOf="@id/fragment_login_user_password"
 
         app:layout_constraintTop_toBottomOf="@+id/fragment_login_button" />
 

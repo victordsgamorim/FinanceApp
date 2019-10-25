@@ -9,12 +9,24 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.victor.financekotlinapp.R
+import com.victor.financekotlinapp.database.AppDatabase
 import com.victor.financekotlinapp.model.User
+import com.victor.financekotlinapp.repository.UserRepository
 import kotlinx.android.synthetic.main.fragment_user_signup.*
 import kotlinx.android.synthetic.main.fragment_user_signup.fragment_signup_user_first_name
+import kotlinx.coroutines.*
 import java.lang.IllegalArgumentException
 
 class SignUpFragment : Fragment() {
+
+    private val dao by lazy {
+        context?.let { AppDatabase.getInstance(it).getUserDao() }
+            ?: throw IllegalArgumentException("Cannot reach the context")
+    }
+
+    private val repository by lazy {
+        UserRepository(dao)
+    }
 
 
     private val controller by lazy {
@@ -40,7 +52,7 @@ class SignUpFragment : Fragment() {
         }
 
         fragment_done_button.setOnClickListener {
-            //createUser()
+            createUser()
             controller.navigate(direction)
 
 
@@ -48,7 +60,7 @@ class SignUpFragment : Fragment() {
 
     }
 
-    private fun createUser(): User {
+    private fun createUser() {
 
         val firstNameField = fragment_signup_user_first_name.editText
         val surnameNameField = fragment_signup_user_surname.editText
@@ -62,12 +74,14 @@ class SignUpFragment : Fragment() {
         val password = passwordField?.let { it.text.toString() }
         val confirmPassword = confirmPasswordField?.let { it.text.toString() }
 
-        return User(
+        val user = User(
             firstName = primeiroNome,
             surname = surname,
             userName = userName,
             password = password
         )
+
+        repository.add(user)
 
     }
 

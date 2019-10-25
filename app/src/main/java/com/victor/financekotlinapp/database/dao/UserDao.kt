@@ -9,9 +9,9 @@ import com.victor.financekotlinapp.model.User
 interface UserDao {
 
     @Insert
-    fun add(use: User)
+    suspend fun add(use: User)
 
-    @Query("SELECT * FROM User")
-    fun seach() : User?
+    @Query("SELECT * FROM User WHERE userName = :userName AND password = :password")
+    suspend fun get(userName: String, password: String): User?
 
 }

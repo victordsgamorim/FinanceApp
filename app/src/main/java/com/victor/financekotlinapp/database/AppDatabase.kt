@@ -22,7 +22,6 @@ abstract class AppDatabase : RoomDatabase() {
             }
 
             db = Room.databaseBuilder(context, AppDatabase::class.java, "finance.db")
-                .allowMainThreadQueries()
                 .build()
 
             return db
