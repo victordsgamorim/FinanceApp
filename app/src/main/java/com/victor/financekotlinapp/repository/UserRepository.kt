@@ -1,5 +1,7 @@
 package com.victor.financekotlinapp.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.victor.financekotlinapp.database.dao.UserDao
 import com.victor.financekotlinapp.model.User
 import kotlinx.coroutines.CoroutineScope
@@ -16,14 +18,19 @@ class UserRepository(private val dao: UserDao) {
         }
     }
 
-    fun get(userName: String, password: String, onFinish: (user: User?) -> Unit) {
+    fun get(userName: String, password: String): LiveData<User> {
+
+        val getFoundUser = MutableLiveData<User>()
+
         CoroutineScope(IO).launch {
             val user = dao.get(userName, password)
 
             withContext(Main) {
-                onFinish(user)
+                getFoundUser.value = user
             }
         }
+
+        return getFoundUser
     }
 
 
