@@ -2,9 +2,11 @@ package com.victor.financekotlinapp.ui.dialog
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.constants.DAY
@@ -12,13 +14,15 @@ import com.victor.financekotlinapp.constants.MONTH
 import com.victor.financekotlinapp.constants.TODAY
 import com.victor.financekotlinapp.constants.YEAR
 import com.victor.financekotlinapp.extensions.formatDateToDDMMYYYY
+import com.victor.financekotlinapp.extensions.getEditTextString
+import kotlinx.android.synthetic.main.fragment_chart_incoming.view.*
 import kotlinx.android.synthetic.main.view_form_finance.view.*
 import java.util.*
 
 class AlertDialogConfig(
     private val viewGroup: ViewGroup,
     private val context: Context
-) {
+    ) {
     private val viewForm = inflateFormView()
 
     fun show() {
@@ -30,7 +34,16 @@ class AlertDialogConfig(
         AlertDialog.Builder(context)
             .setTitle("Add new finance")
             .setView(viewForm)
-            .setPositiveButton("OK", null) //TODO("not implemented") still need to config a listener to ok button
+            .setPositiveButton("OK") { dialogInterface, i ->
+
+                val message = getEditTextString(viewForm.form_finance_message)
+                val value = getEditTextString(viewForm.form_finance_value)
+                val date = viewForm.form_finance_date.text.toString()
+
+                //need to add transaction with userID
+                Toast.makeText(context, "$message $value $date", Toast.LENGTH_SHORT).show()
+
+            }
             .setNegativeButton("Cancel", null)
             .show()
     }

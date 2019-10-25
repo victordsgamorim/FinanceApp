@@ -1,10 +1,11 @@
-package com.victor.financekotlinapp.ui.frangment
+package com.victor.financekotlinapp.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.victor.financekotlinapp.ui.frangment.FragmentResource
 
-class FragmentManagerViewPager(private val fm: FragmentManager) :
+class FragmentManagerViewPager(fm: FragmentManager) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val fragments: MutableList<FragmentResource> = mutableListOf()

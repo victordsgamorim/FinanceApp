@@ -18,19 +18,12 @@ class UserRepository(private val dao: UserDao) {
         }
     }
 
-    fun get(userName: String, password: String): LiveData<User> {
+    fun get(userName: String, password: String): LiveData<User?> {
+        return dao.get(userName, password)
+    }
 
-        val getFoundUser = MutableLiveData<User>()
-
-        CoroutineScope(IO).launch {
-            val user = dao.get(userName, password)
-
-            withContext(Main) {
-                getFoundUser.value = user
-            }
-        }
-
-        return getFoundUser
+    fun getUserById(userId: Long): LiveData<User?> {
+        return dao.get(userId)
     }
 
 

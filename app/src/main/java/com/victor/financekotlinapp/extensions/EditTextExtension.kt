@@ -10,3 +10,11 @@ fun Fragment.getEditTextString(inputLayout: TextInputLayout): String {
 
     return editTextValue
 }
+
+fun getEditTextString(inputLayout: TextInputLayout): String {
+    val editTextFiel = inputLayout.editText
+        ?: throw NullPointerException("EditText value is null")
+    val editTextValue = editTextFiel.text.toString()
+
+    return editTextValue
+}

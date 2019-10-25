@@ -6,35 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.victor.financekotlinapp.R
-import com.victor.financekotlinapp.database.AppDatabase
 import com.victor.financekotlinapp.extensions.getEditTextString
 import com.victor.financekotlinapp.extensions.showToast
-import com.victor.financekotlinapp.factory.LoginFragmentViewModelFactory
-import com.victor.financekotlinapp.repository.UserRepository
 import com.victor.financekotlinapp.viewmodel.LoginFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
 
-    private val viewModel by lazy {
-        val dao = context?.let { AppDatabase.getInstance(it).getUserDao() }
-            ?: throw IllegalArgumentException("Cannot reach the context")
-        val repository = UserRepository(dao)
-        val factory = LoginFragmentViewModelFactory(repository)
-        val provider = ViewModelProviders.of(this, factory)
-        provider.get(LoginFragmentViewModel::class.java)
-    }
 
-    private val dao by lazy {
-
-    }
-
-    private val repository by lazy {
-
-    }
+    private val viewModel: LoginFragmentViewModel by viewModel()
 
     private val controller by lazy {
         findNavController()
@@ -65,17 +48,13 @@ class LoginFragment : Fragment() {
         val username = getEditTextString(fragment_login_username)
         val password = getEditTextString(fragment_login_user_password)
 
+
         viewModel.get(username, password).observe(this, Observer {
-
-            if (it != null) {
+            it?.let {
                 showToast("Welcome ${it.firstName} ${it.surname}")
-                goToBalanceFragment()
-
-            } else {
-                showToast("Could not find user")
-            }
+                goToBalanceFragment(it.id)
+            } ?: showToast("Could not find user")
         })
-
 
 
     }
@@ -88,9 +67,9 @@ class LoginFragment : Fragment() {
         controller.navigate(direcation)
     }
 
-    private fun goToBalanceFragment() {
+    private fun goToBalanceFragment(id: Long) {
         val direction =
-            LoginFragmentDirections.actionLoginFragmentToTablayoutFragment()
+            LoginFragmentDirections.actionLoginFragmentToTablayoutFragment(id)
 
         controller.navigate(direction)
     }

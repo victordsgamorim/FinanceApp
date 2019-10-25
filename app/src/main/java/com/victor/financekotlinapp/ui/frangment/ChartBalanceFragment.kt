@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.model.PieChartType
-import com.victor.financekotlinapp.model.BalanceType
-import com.victor.financekotlinapp.ui.view.PieChartView
 import com.victor.financekotlinapp.model.Transaction
 import com.victor.financekotlinapp.ui.adapter.TransactionAdapter
 import com.victor.financekotlinapp.ui.dialog.AlertDialogConfig
+import com.victor.financekotlinapp.ui.view.PieChartView
 import kotlinx.android.synthetic.main.fragment_chart_total_balance.*
-import java.math.BigDecimal
+import org.koin.android.ext.android.inject
 
 class ChartBalanceFragment : Fragment() {
 
@@ -22,10 +21,7 @@ class ChartBalanceFragment : Fragment() {
             ?: throw IllegalArgumentException("Context not found!")
     }
 
-    private val adapter by lazy {
-        TransactionAdapter(activityContext)
-    }
-
+    private val adapter: TransactionAdapter by inject()
     private val viewGroup by lazy {
         activity?.let { it.window.decorView as ViewGroup }
     }
@@ -37,16 +33,7 @@ class ChartBalanceFragment : Fragment() {
 
     /**Example of data*/
     private fun carregaDados() {
-
-        val balances: List<Transaction> = listOf(
-            Transaction(
-                message = "Lunchsaldkajdklasjdklsajdlkajdakljdakldjalkdjakldjalkdjaldkaj",
-                value = BigDecimal(100.0), type = BalanceType.OUTGOING
-            ),
-            Transaction(message = "Wage", value = BigDecimal(300.0), type = BalanceType.INCOMING),
-            Transaction(message = "Car", value = BigDecimal(123.98), type = BalanceType.OUTGOING),
-            Transaction(message = "House", value = BigDecimal(709.21), type = BalanceType.OUTGOING)
-        )
+        val balances = listOf<Transaction>()
 
         adapter.update(balances)
     }
@@ -66,8 +53,6 @@ class ChartBalanceFragment : Fragment() {
         fragment_total_balance_transaction_list.adapter = adapter
         configTotalBalancePieChart()
         openAddTransactionAlertDialog()
-
-
     }
 
     private fun openAddTransactionAlertDialog() {

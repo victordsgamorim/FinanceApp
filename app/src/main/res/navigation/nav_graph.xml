@@ -9,7 +9,11 @@
         android:id="@+id/tablayoutFragment"
         android:name="com.victor.financekotlinapp.ui.frangment.TabLayoutFragment"
         android:label="TabLayout"
-        tools:layout="@layout/fragment_tablayout" />
+        tools:layout="@layout/fragment_tablayout" >
+        <argument
+            android:name="userId"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.victor.financekotlinapp.ui.frangment.LoginFragment"
