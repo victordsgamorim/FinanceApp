@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.database.AppDatabase
+import com.victor.financekotlinapp.extensions.getEditTextString
 import com.victor.financekotlinapp.model.User
 import com.victor.financekotlinapp.repository.UserRepository
 import kotlinx.android.synthetic.main.fragment_user_signup.*
@@ -54,30 +55,22 @@ class SignUpFragment : Fragment() {
         fragment_done_button.setOnClickListener {
             createUser()
             controller.navigate(direction)
-
-
         }
 
     }
 
     private fun createUser() {
 
-        val firstNameField = fragment_signup_user_first_name.editText
-        val surnameNameField = fragment_signup_user_surname.editText
-        val userNameField = fragment_signup_user_name.editText
-        val passwordField = fragment_signup_user_password.editText
-        val confirmPasswordField = fragment_signup_user_confirm_password.editText
-
-        val primeiroNome = firstNameField?.let { it.text.toString() }
-        val surname = surnameNameField?.let { it.text.toString() }
-        val userName = userNameField?.let { it.text.toString() }
-        val password = passwordField?.let { it.text.toString() }
-        val confirmPassword = confirmPasswordField?.let { it.text.toString() }
+        val firstName = getEditTextString(fragment_signup_user_first_name)
+        val surname = getEditTextString(fragment_signup_user_surname)
+        val username = getEditTextString(fragment_signup_user_name)
+        val password = getEditTextString(fragment_signup_user_password)
+        val passwordConfirm = getEditTextString(fragment_signup_user_confirm_password)
 
         val user = User(
-            firstName = primeiroNome,
+            firstName = firstName,
             surname = surname,
-            userName = userName,
+            userName = username,
             password = password
         )
 
