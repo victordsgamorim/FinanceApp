@@ -13,17 +13,25 @@ import com.victor.financekotlinapp.constants.DAY
 import com.victor.financekotlinapp.constants.MONTH
 import com.victor.financekotlinapp.constants.TODAY
 import com.victor.financekotlinapp.constants.YEAR
+import com.victor.financekotlinapp.extensions.formatCurrecytToEuro
 import com.victor.financekotlinapp.extensions.formatDateToDDMMYYYY
 import com.victor.financekotlinapp.extensions.getEditTextString
+import com.victor.financekotlinapp.model.BalanceType
+import com.victor.financekotlinapp.model.Transaction
+import com.victor.financekotlinapp.model.User
+import com.victor.financekotlinapp.viewmodel.ChartBalanceFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_chart_incoming.view.*
 import kotlinx.android.synthetic.main.view_form_finance.view.*
+import java.math.BigDecimal
 import java.util.*
 
 class AlertDialogConfig(
-    private val viewGroup: ViewGroup,
-    private val context: Context
-    ) {
+    private val context: Context,
+    private val userId: Long,
+    private val viewGroup: ViewGroup
+) {
     private val viewForm = inflateFormView()
+    var onTransactionCreated: (transaction: Transaction) -> Unit = {}
 
     fun show() {
         configDate()
@@ -40,8 +48,16 @@ class AlertDialogConfig(
                 val value = getEditTextString(viewForm.form_finance_value)
                 val date = viewForm.form_finance_date.text.toString()
 
-                //need to add transaction with userID
-                Toast.makeText(context, "$message $value $date", Toast.LENGTH_SHORT).show()
+
+                val transaction = Transaction(
+                    message = message,
+                    value = BigDecimal(value),
+                    userId = userId,
+                    type = BalanceType.OUTGOING
+                )
+
+                onTransactionCreated(transaction)
+
 
             }
             .setNegativeButton("Cancel", null)

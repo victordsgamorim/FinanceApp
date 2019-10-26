@@ -4,17 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.model.PieChartType
 import com.victor.financekotlinapp.model.Transaction
+import com.victor.financekotlinapp.model.User
 import com.victor.financekotlinapp.ui.adapter.TransactionAdapter
 import com.victor.financekotlinapp.ui.dialog.AlertDialogConfig
 import com.victor.financekotlinapp.ui.view.PieChartView
+import com.victor.financekotlinapp.viewmodel.ChartBalanceFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_chart_total_balance.*
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ChartBalanceFragment : Fragment() {
+
+    private val chartBalanceViewModel: ChartBalanceFragmentViewModel by viewModel()
 
     private val activityContext by lazy {
         context?.let { it }
@@ -29,13 +36,19 @@ class ChartBalanceFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         carregaDados()
+
+
     }
 
     /**Example of data*/
     private fun carregaDados() {
-        val balances = listOf<Transaction>()
 
-        adapter.update(balances)
+        val userId = chartBalanceViewModel.id
+        chartBalanceViewModel.getList(userId).observe(this, Observer { transactions ->
+            transactions?.let { adapter.update(it) }
+        })
+
+
     }
 
 
@@ -56,14 +69,27 @@ class ChartBalanceFragment : Fragment() {
     }
 
     private fun openAddTransactionAlertDialog() {
+        val userId = chartBalanceViewModel.id
+        configAlertDialog(userId)
+
+    }
+
+    private fun configAlertDialog(userId: Long) {
         viewGroup?.let { viewGroup ->
             fragment_total_balance_fab.setOnClickListener {
-                AlertDialogConfig(
+                val dialog = AlertDialogConfig(
                     context = activityContext,
+                    userId = userId,
                     viewGroup = viewGroup
-                ).show()
-            }
+                )
 
+                dialog.onTransactionCreated = {
+                    chartBalanceViewModel.add(it)
+                }
+
+                dialog.show()
+
+            }
         }
     }
 

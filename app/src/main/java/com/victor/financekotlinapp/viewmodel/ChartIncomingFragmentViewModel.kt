@@ -1,21 +1,10 @@
 package com.victor.financekotlinapp.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import com.victor.financekotlinapp.model.User
 import com.victor.financekotlinapp.repository.TablayoutRepository
-import com.victor.financekotlinapp.repository.UserRepository
+import com.victor.financekotlinapp.repository.TransactionRepository
 
 class ChartIncomingFragmentViewModel(
-    private val tablayoutRepository: TablayoutRepository,
-    private val userRepository: UserRepository
-) : ViewModel() {
+    tablayoutRepository: TablayoutRepository,
+    transactionRepository: TransactionRepository
+) : BaseViewModel(tablayoutRepository, transactionRepository)
 
-    fun getId(): Long {
-        return tablayoutRepository.get()
-    }
-
-    fun getUserById(id: Long): LiveData<User?> {
-        return userRepository.getUserById(id)
-    }
-}
