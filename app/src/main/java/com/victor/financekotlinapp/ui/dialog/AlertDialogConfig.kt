@@ -3,9 +3,11 @@ package com.victor.financekotlinapp.ui.dialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.victor.financekotlinapp.R
@@ -22,6 +24,7 @@ import com.victor.financekotlinapp.model.User
 import com.victor.financekotlinapp.viewmodel.ChartBalanceFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_chart_incoming.view.*
 import kotlinx.android.synthetic.main.view_form_finance.view.*
+import java.lang.IllegalArgumentException
 import java.math.BigDecimal
 import java.util.*
 
@@ -35,7 +38,18 @@ class AlertDialogConfig(
 
     fun show() {
         configDate()
+        configDropdownBox()
         alertDialog()
+    }
+
+    private fun configDropdownBox() {
+        val adapter = ArrayAdapter.createFromResource(
+            context,
+            R.array.balance_type,
+            android.R.layout.simple_spinner_dropdown_item
+        )
+
+        viewForm.form_finance_dropdown.adapter = adapter
     }
 
     private fun alertDialog() {
@@ -47,13 +61,13 @@ class AlertDialogConfig(
                 val message = getEditTextString(viewForm.form_finance_message)
                 val value = getEditTextString(viewForm.form_finance_value)
                 val date = viewForm.form_finance_date.text.toString()
-
+                val categoryItemSelected = getCategory()
 
                 val transaction = Transaction(
                     message = message,
                     value = BigDecimal(value),
                     userId = userId,
-                    type = BalanceType.OUTGOING
+                    type = categoryItemSelected
                 )
 
                 onTransactionCreated(transaction)
@@ -62,6 +76,16 @@ class AlertDialogConfig(
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    private fun getCategory(): BalanceType {
+
+        return when (viewForm.form_finance_dropdown.selectedItem.toString()) {
+            "Incoming" -> BalanceType.INCOMING
+            "Outgoing" -> BalanceType.OUTGOING
+            else -> throw IllegalArgumentException("There is no item selected.")
+        }
+
     }
 
     private fun inflateFormView(): View {

@@ -8,4 +8,11 @@
         <item>@color/red</item>
 
     </array>
+
+
+    <string-array name="balance_type">
+        <item>Incoming</item>
+        <item>Outgoing</item>
+    </string-array>
+
 </resources>

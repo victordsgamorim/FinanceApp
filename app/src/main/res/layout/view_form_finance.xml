@@ -62,7 +62,7 @@
 
 
     <View
-        android:id="@+id/form_finance_dropdown"
+        android:id="@+id/view_form_finance_dropdown"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
@@ -71,6 +71,16 @@
         app:layout_constraintEnd_toStartOf="@+id/form_finance_date"
         app:layout_constraintStart_toStartOf="@+id/form_finance_value"
         app:layout_constraintTop_toTopOf="@+id/form_finance_date" />
+
+    <Spinner
+        android:id="@+id/form_finance_dropdown"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/view_form_finance_dropdown"
+        app:layout_constraintEnd_toEndOf="@id/view_form_finance_dropdown"
+        app:layout_constraintStart_toStartOf="@id/view_form_finance_dropdown"
+        app:layout_constraintTop_toTopOf="@id/view_form_finance_dropdown" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
