@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.victor.financekotlinapp.R
 import com.victor.financekotlinapp.extensions.getEditTextString
+import com.victor.financekotlinapp.extensions.showSnackbar
 import com.victor.financekotlinapp.extensions.showToast
 import com.victor.financekotlinapp.viewmodel.LoginFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.snackbar_information.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -51,9 +54,9 @@ class LoginFragment : Fragment() {
 
         viewModel.get(username, password).observe(this, Observer {
             it?.let {
-                showToast("Welcome ${it.firstName} ${it.surname}")
                 goToBalanceFragment(it.id)
-            } ?: showToast("Could not find user")
+            } ?: showSnackbar(snackbar_action, "Could not find user", Snackbar.LENGTH_INDEFINITE)
+
         })
 
 

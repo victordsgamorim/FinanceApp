@@ -37,7 +37,7 @@ val modules = module {
 
     viewModel<LoginFragmentViewModel> { LoginFragmentViewModel(get()) }
     viewModel<SignUpViewFragmentModel> { SignUpViewFragmentModel(get()) }
-    viewModel<TablayoutFragmentViewModel> { TablayoutFragmentViewModel(get()) }
+    viewModel<TablayoutFragmentViewModel> { TablayoutFragmentViewModel(get(), get()) }
     viewModel<ChartIncomingFragmentViewModel> { ChartIncomingFragmentViewModel(get(), get()) }
     viewModel<ChartBalanceFragmentViewModel> { ChartBalanceFragmentViewModel(get(), get()) }
 

@@ -14,6 +14,10 @@ import com.victor.financekotlinapp.model.PieChartStatistics
 import com.victor.financekotlinapp.model.PieChartType
 import com.victor.financekotlinapp.model.Transaction
 import kotlinx.android.synthetic.main.fragment_chart_total_balance.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
 
 
 class PieChartView(
@@ -51,9 +55,10 @@ class PieChartView(
 
         val incoming = statistics.sumOfBalanceIncoming().toFloat()
         val outgoing = statistics.sumOfBalanaceOutgoing().toFloat()
-
+        
         dataTransaction.add(PieEntry(incoming))
         dataTransaction.add(PieEntry(outgoing))
+
 
     }
 

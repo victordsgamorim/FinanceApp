@@ -22,4 +22,8 @@
 
     </androidx.viewpager.widget.ViewPager>
 
+    <include
+        layout="@layout/snackbar_information" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
